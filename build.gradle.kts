@@ -19,6 +19,7 @@ dependencies {
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.6.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.6.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 
 
