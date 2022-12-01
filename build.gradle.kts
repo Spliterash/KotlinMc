@@ -45,7 +45,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "ru.spliterash"
-            artifactId = rootProject.name
+            artifactId = "kotlin-mc"
 
             from(components["java"])
         }
@@ -54,7 +54,7 @@ publishing {
     repositories {
         maven {
             name = "nexus"
-            url = uri("https://nexus.spliterash.ru/repository/${rootProject.name}")
+            url = uri("https://nexus.spliterash.ru/repository/kotlin-mc")
             credentials {
                 username = findProperty("SPLITERASH_NEXUS_USR")?.toString()
                 password = findProperty("SPLITERASH_NEXUS_PSW")?.toString()
