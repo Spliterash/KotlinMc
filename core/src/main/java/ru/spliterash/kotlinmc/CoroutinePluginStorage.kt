@@ -6,7 +6,7 @@ internal object CoroutinePluginStorage {
     private val map = hashMapOf<JavaPlugin, CoroutinePlugin>()
 
     fun find(plugin: JavaPlugin): CoroutinePlugin {
-        return map.computeIfAbsent(plugin, ::createCoroutinePlugin)
+        return map.computeIfAbsent(plugin, CoroutinePluginStorage::createCoroutinePlugin)
     }
 
     fun shutdown(plugin: JavaPlugin) {
