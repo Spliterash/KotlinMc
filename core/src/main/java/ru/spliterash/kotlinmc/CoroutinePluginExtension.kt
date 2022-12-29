@@ -15,7 +15,7 @@ private val JavaPlugin.scope: CoroutineScope
 
 suspend fun <T> JavaPlugin.withSync(block: suspend CoroutineScope.() -> T): T {
     return if (isEnabled)
-        withContext(storage.minecraftDispatcher, block)
+        withContext(storage.scope.coroutineContext, block)
     else
         runBlocking {
             block()
@@ -35,12 +35,26 @@ fun JavaPlugin.launch(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
-): Job = scope.launch(context, start, block)
+): Job {
+    return if (isEnabled)
+        scope.launch(context, start, block)
+    else {
+        runBlocking { block() }
+        Job().apply { complete() }
+    }
+}
 
 fun JavaPlugin.launchIO(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit
-): Job = scope.launch(Dispatchers.IO, start, block)
+): Job {
+    return if (isEnabled)
+        scope.launch(Dispatchers.IO, start, block)
+    else {
+        runBlocking { block() }
+        Job().apply { complete() }
+    }
+}
 
 fun <T> JavaPlugin.async(
     context: CoroutineContext = EmptyCoroutineContext,
