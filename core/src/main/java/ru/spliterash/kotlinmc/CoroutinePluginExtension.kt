@@ -10,14 +10,20 @@ import kotlin.coroutines.EmptyCoroutineContext
 private val JavaPlugin.storage: CoroutinePlugin
     get() = CoroutinePluginStorage.find(this)
 
-val JavaPlugin.scope: CoroutineScope
+private val JavaPlugin.scope: CoroutineScope
     get() = storage.scope
 
 suspend fun <T> JavaPlugin.withSync(block: suspend CoroutineScope.() -> T) =
     withContext(storage.minecraftDispatcher, block)
 
-suspend fun <T> withIO(block: suspend CoroutineScope.() -> T) =
-    withContext(Dispatchers.IO, block)
+suspend fun <T> JavaPlugin.withIO(block: suspend CoroutineScope.() -> T): T {
+    return if (isEnabled)
+        withContext(Dispatchers.IO, block)
+    else
+        runBlocking {
+            block()
+        }
+}
 
 fun JavaPlugin.launch(
     context: CoroutineContext = EmptyCoroutineContext,

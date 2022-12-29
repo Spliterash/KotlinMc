@@ -8,8 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin
 open class KotlinMCListener : Listener {
     @EventHandler
     open fun onPluginDisable(e: PluginDisableEvent) {
-        val plugin = e.plugin
-        if (plugin is JavaPlugin)
-            CoroutinePluginStorage.shutdown(plugin)
+        KotlinMCHandler.onPluginDisable(e.plugin)
     }
 }
