@@ -13,8 +13,14 @@ private val JavaPlugin.storage: CoroutinePlugin
 private val JavaPlugin.scope: CoroutineScope
     get() = storage.scope
 
-suspend fun <T> JavaPlugin.withSync(block: suspend CoroutineScope.() -> T) =
-    withContext(storage.minecraftDispatcher, block)
+suspend fun <T> JavaPlugin.withSync(block: suspend CoroutineScope.() -> T): T {
+    return if (isEnabled)
+        withContext(storage.minecraftDispatcher, block)
+    else
+        runBlocking {
+            block()
+        }
+}
 
 suspend fun <T> JavaPlugin.withIO(block: suspend CoroutineScope.() -> T): T {
     return if (isEnabled)
