@@ -30,22 +30,23 @@ allprojects {
     apply(plugin = "maven-publish")
 
     group = "ru.spliterash"
-    version = "1.0.2"
+    version = "1.0.3"
 
     repositories {
         mavenCentral()
-        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots")
+        maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
     }
     java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(17))
         withSourcesJar()
-    }
 
+    }
     dependencies {
         api("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
         api("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
         api("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
 
-        compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
+        compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
     }
     tasks.withType<KotlinCompile> {
         kotlinOptions.jvmTarget = "1.8"

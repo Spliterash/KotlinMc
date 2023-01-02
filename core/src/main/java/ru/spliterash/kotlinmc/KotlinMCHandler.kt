@@ -8,4 +8,8 @@ object KotlinMCHandler {
         if (plugin is JavaPlugin)
             CoroutinePluginStorage.shutdown(plugin)
     }
+
+    fun onTickStart(tick: Int) {
+        KotlinMCTickDelayStorage.onTickStart(tick)
+    }
 }

@@ -2,6 +2,7 @@ package ru.spliterash.kotlinmc
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.future.future
+import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.concurrent.CompletableFuture
 import kotlin.coroutines.CoroutineContext
@@ -77,3 +78,5 @@ fun <T> JavaPlugin.futureIO(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
 ): CompletableFuture<T> = scope.future(Dispatchers.IO, start, block)
+
+
