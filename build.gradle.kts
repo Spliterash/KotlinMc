@@ -69,7 +69,7 @@ allprojects {
         repositories {
             maven {
                 name = "nexus"
-                url = uri("https://nexus.spliterash.ru/repository/kotlin-mc")
+                url = uri("https://repo.spliterash.ru/kotlin-mc")
                 credentials {
                     username = findProperty("SPLITERASH_NEXUS_USR")?.toString()
                     password = findProperty("SPLITERASH_NEXUS_PSW")?.toString()
