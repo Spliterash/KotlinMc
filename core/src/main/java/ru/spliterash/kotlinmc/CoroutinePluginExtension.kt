@@ -2,7 +2,6 @@ package ru.spliterash.kotlinmc
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.future.future
-import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.concurrent.CompletableFuture
 import kotlin.coroutines.CoroutineContext
@@ -11,7 +10,12 @@ import kotlin.coroutines.EmptyCoroutineContext
 private val JavaPlugin.storage: CoroutinePlugin
     get() = CoroutinePluginStorage.find(this)
 
-private val JavaPlugin.scope: CoroutineScope
+/**
+ * Не юзать без крайней необходимости
+ *
+ * Лучше юзайте методы
+ */
+val JavaPlugin.scope: CoroutineScope
     get() = storage.scope
 
 suspend fun <T> JavaPlugin.withSync(block: suspend CoroutineScope.() -> T): T {
